@@ -11,16 +11,19 @@ class TickerController extends Controller
 {
     public function test()
     {
-        onesecJobDispatcher::dispatch();
+        $this->getData(14, 'btcusd_para');
     }
 
-    public function getData($id)
+    public function getData($id, $symbol = null)
     {
         $result = array();
         $data = Ticker::find($id);
-        $json = file_get_contents($data->url);
+        if ($data->seperate==1) {
+            $json = file_get_contents($data->url.$data->{$symbol});
+        } else {
+            $json = file_get_contents($data->url);
+        }
         $tickers = json_decode($json);
-        // dd($tickers);
         switch ($data->type) {
             case 1:
                 foreach ($tickers as $key => $ticker) {
@@ -132,6 +135,27 @@ class TickerController extends Controller
                 $result['ethusd']['ask'] = $tickers->{$data->ethusd_para}->{$data->ask_para};
                 $result['xrpusd']['bid'] = $tickers->{$data->xrpusd_para}->{$data->bid_para};
                 $result['xrpusd']['ask'] = $tickers->{$data->xrpusd_para}->{$data->ask_para};
+                break;
+            case 11:
+                switch ($symbol) {
+                    case 'btcusd_para':
+                        $result['btcusd']['bid'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[2];
+                        $result['btcusd']['ask'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[4];
+                        $id .= 'btc';
+                        break;
+                    
+                    case 'ethusd_para':
+                        $result['ethusd']['bid'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[2];
+                        $result['ethusd']['ask'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[4];
+                        $id .= 'eth';
+                        break;
+                    
+                    case 'xrpusd_para':
+                        $result['xrpusd']['bid'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[2];
+                        $result['xrpusd']['ask'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[4];
+                        $id .= 'xrp';
+                        break;
+                }
                 break;
         }
         $result['exchange'] = $data->exchange;
