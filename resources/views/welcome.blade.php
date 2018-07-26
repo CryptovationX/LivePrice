@@ -97,7 +97,9 @@
 
         <script>
 
-            var socket = io('http://localhost:3000');
+            var socket = io.connect('https://socketliveprice.cryptovationx.io:8443', {
+                secure: true
+            });
 
             new Vue({
                 el: 'body',
