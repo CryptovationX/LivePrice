@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Carbon\Carbon;
 use App\Ticker;
 
-class sixsecJobDispatcher implements ShouldQueue
+class SonesecJobDispatcher implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -32,12 +32,14 @@ class sixsecJobDispatcher implements ShouldQueue
      */
     public function handle()
     {
-        sixsecJobDispatcher::dispatch()->delay(Carbon::now()->addSeconds(6));
+        SonesecJobDispatcher::dispatch()->delay(Carbon::now()->addSeconds(1));
         
         $tickers = Ticker::all();
         foreach ($tickers as $key => $ticker) {
-            if ($ticker->interval == 6 && $ticker->seperate != 1) {
-                JobDispatcher::dispatch($ticker->id);
+            if ($ticker->interval == 1 && $ticker->seperate == 1) {
+                SJobDispatcher::dispatch($ticker->id, 'btcusd_para');
+                SJobDispatcher::dispatch($ticker->id, 'ethusd_para');
+                SJobDispatcher::dispatch($ticker->id, 'xrpusd_para');
             }
         }
     }

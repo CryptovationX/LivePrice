@@ -36,7 +36,7 @@ class twosecJobDispatcher implements ShouldQueue
         
         $tickers = Ticker::all();
         foreach ($tickers as $key => $ticker) {
-            if ($ticker->interval == 2) {
+            if ($ticker->interval == 2 && $ticker->seperate != 1) {
                 JobDispatcher::dispatch($ticker->id);
             }
         }

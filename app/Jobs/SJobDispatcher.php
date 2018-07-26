@@ -8,21 +8,25 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-use Carbon\Carbon;
-use App\Ticker;
 
-class sixsecJobDispatcher implements ShouldQueue
+use App\Ticker;
+use App\Http\Controllers\TickerController;
+
+class SJobDispatcher implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $id;
+    protected $param;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($id, $param)
     {
-        //
+        $this->id = $id;
+        $this->param = $param;
     }
 
     /**
@@ -32,13 +36,8 @@ class sixsecJobDispatcher implements ShouldQueue
      */
     public function handle()
     {
-        sixsecJobDispatcher::dispatch()->delay(Carbon::now()->addSeconds(6));
-        
-        $tickers = Ticker::all();
-        foreach ($tickers as $key => $ticker) {
-            if ($ticker->interval == 6 && $ticker->seperate != 1) {
-                JobDispatcher::dispatch($ticker->id);
-            }
-        }
+        // echo($this->id);
+        $controller = new TickerController;
+        $controller->getData($this->id, $param);
     }
 }

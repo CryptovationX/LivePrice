@@ -36,7 +36,7 @@ class onesecJobDispatcher implements ShouldQueue
         
         $tickers = Ticker::all();
         foreach ($tickers as $key => $ticker) {
-            if ($ticker->interval == 1) {
+            if ($ticker->interval == 1 && $ticker->seperate != 1) {
                 JobDispatcher::dispatch($ticker->id);
             }
         }

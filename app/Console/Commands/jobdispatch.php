@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Jobs\onesecJobDispatcher;
 use App\Jobs\twosecJobDispatcher;
 use App\Jobs\sixsecJobDispatcher;
+use App\Jobs\SonesecJobDispatcher;
 
 class jobdispatch extends Command
 {
@@ -43,5 +44,6 @@ class jobdispatch extends Command
         onesecJobDispatcher::dispatch();
         twosecJobDispatcher::dispatch();
         sixsecJobDispatcher::dispatch();
+        SonesecJobDispatcher::dispatch();
     }
 }
