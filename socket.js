@@ -24,8 +24,8 @@
 var fs = require('fs');
 // This line is from the Node.js HTTPS documentation.
 var options = {
-    key: fs.readFileSync('/etc/nginx/ssl/socketorderbook.cryptovationx.io/385991/server.key'),
-    cert: fs.readFileSync('/etc/nginx/ssl/socketorderbook.cryptovationx.io/385991/server.crt')
+    key: fs.readFileSync('/etc/nginx/ssl/socketliveprice.cryptovationx.io/385991/server.key'),
+    cert: fs.readFileSync('/etc/nginx/ssl/socketliveprice.cryptovationx.io/385991/server.crt')
 };
 var app = require('https').createServer(options, handler);
 var io = require('socket.io')(app);
