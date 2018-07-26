@@ -10,12 +10,12 @@ class TestController extends Controller
 {
     public function test()
     {
-        // $controller = new TickerAPI;
-        // $controller->getData(15, 'btcusd_para');
+        $controller = new TickerAPI;
+        $controller->getData(11);
 
-        $controller = new TickerRedis;
+        // $controller = new TickerRedis;
         // $controller->merge();
-        $result = $controller->appendorderbook();
-        dd($result);
+        // $result = $controller->appendorderbook();
+        // dd($result);
     }
 }
