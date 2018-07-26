@@ -7,6 +7,7 @@ use App\Jobs\onesecJobDispatcher;
 use App\Jobs\twosecJobDispatcher;
 use App\Jobs\sixsecJobDispatcher;
 use App\Jobs\SonesecJobDispatcher;
+use App\Jobs\SthreesecJobDispatcher;
 
 class jobdispatch extends Command
 {
@@ -45,5 +46,6 @@ class jobdispatch extends Command
         twosecJobDispatcher::dispatch();
         sixsecJobDispatcher::dispatch();
         SonesecJobDispatcher::dispatch();
+        SthreesecJobDispatcher::dispatch();
     }
 }

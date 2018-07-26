@@ -14,6 +14,4 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('setup', 'TickerController@setup');
-Route::get('getdata', 'TickerController@getdata');
-Route::get('test', 'TickerController@test');
+Route::get('test', 'TestController@test');

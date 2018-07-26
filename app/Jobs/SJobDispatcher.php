@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 
 use App\Ticker;
-use App\Http\Controllers\TickerController;
+use App\Tickers\TickerAPI;
 
 class SJobDispatcher implements ShouldQueue
 {
@@ -37,7 +37,7 @@ class SJobDispatcher implements ShouldQueue
     public function handle()
     {
         // echo($this->id);
-        $controller = new TickerController;
-        $controller->getData($this->id, $param);
+        $controller = new TickerAPI;
+        $controller->getData($this->id, $this->param);
     }
 }

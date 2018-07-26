@@ -1,17 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Tickers;
 
-use Illuminate\Http\Request;
 use App\Ticker;
-use App\Jobs\onesecJobDispatcher;
 use Illuminate\Support\Facades\Redis;
 
-class TickerController extends Controller
+class TickerAPI
 {
     public function test()
     {
-        $this->getData(14, 'btcusd_para');
+        $this->getData(15, 'btcusd_para');
+    }
+
+    public function forex()
+    {
+        $json = file_get_contents('http://apilayer.net/api/live?access_key=388c98963b910615abafe67e5d0d6bc5&currencies=THB,INR,KRW,TRY');
+        $forex = json_decode($json);
+        Redis::set('THB', $forex->quotes->USDTHB);
+        Redis::set('INR', $forex->quotes->USDINR);
+        Redis::set('KRW', $forex->quotes->USDKRW);
+        Redis::set('TRY', $forex->quotes->USDTRY);
     }
 
     public function getData($id, $symbol = null)
@@ -22,6 +30,8 @@ class TickerController extends Controller
             $json = file_get_contents($data->url.$data->{$symbol});
         } else {
             $json = file_get_contents($data->url);
+            $result['exchange'] = $data->exchange;
+            $result['logo'] = $data->second_url;
         }
         $tickers = json_decode($json);
         switch ($data->type) {
@@ -60,12 +70,13 @@ class TickerController extends Controller
                 break;
 
             case 3:
-                $result['btcusd']['bid'] = $tickers->{1}->orderbook->bids->highbid;
-                $result['btcusd']['ask'] = $tickers->{1}->orderbook->asks->highbid;
-                $result['ethusd']['bid'] = $tickers->{21}->orderbook->bids->highbid;
-                $result['ethusd']['ask'] = $tickers->{21}->orderbook->asks->highbid;
-                $result['xrpusd']['bid'] = $tickers->{25}->orderbook->bids->highbid;
-                $result['xrpusd']['ask'] = $tickers->{25}->orderbook->asks->highbid;
+                $forex = Redis::get('THB');
+                $result['btcusd']['bid'] = $tickers->{1}->orderbook->bids->highbid/$forex;
+                $result['btcusd']['ask'] = $tickers->{1}->orderbook->asks->highbid/$forex;
+                $result['ethusd']['bid'] = $tickers->{21}->orderbook->bids->highbid/$forex;
+                $result['ethusd']['ask'] = $tickers->{21}->orderbook->asks->highbid/$forex;
+                $result['xrpusd']['bid'] = $tickers->{25}->orderbook->bids->highbid/$forex;
+                $result['xrpusd']['ask'] = $tickers->{25}->orderbook->asks->highbid/$forex;
                 break;
             case 4:
                 $result['btcusd']['bid'] = $tickers->result->XXBTZUSD->b[0];
@@ -100,41 +111,44 @@ class TickerController extends Controller
                 $result['xrpusd']['ask'] = $tickers->data->ticker->{$data->xrpusd_para}->{$data->ask_para};
                 break;
             case 8:
-                $result['btcusd']['bid'] = $tickers->{$data->ticker_para}->{$data->btcusd_para}->{$data->bid_para};
-                $result['btcusd']['ask'] = $tickers->{$data->ticker_para}->{$data->btcusd_para}->{$data->ask_para};
-                $result['ethusd']['bid'] = $tickers->{$data->ticker_para}->{$data->ethusd_para}->{$data->bid_para};
-                $result['ethusd']['ask'] = $tickers->{$data->ticker_para}->{$data->ethusd_para}->{$data->ask_para};
-                $result['xrpusd']['bid'] = $tickers->{$data->ticker_para}->{$data->xrpusd_para}->{$data->bid_para};
-                $result['xrpusd']['ask'] = $tickers->{$data->ticker_para}->{$data->xrpusd_para}->{$data->ask_para};
+                $forex = Redis::get('KRW');
+                $result['btcusd']['bid'] = $tickers->{$data->ticker_para}->{$data->btcusd_para}->{$data->bid_para}/$forex;
+                $result['btcusd']['ask'] = $tickers->{$data->ticker_para}->{$data->btcusd_para}->{$data->ask_para}/$forex;
+                $result['ethusd']['bid'] = $tickers->{$data->ticker_para}->{$data->ethusd_para}->{$data->bid_para}/$forex;
+                $result['ethusd']['ask'] = $tickers->{$data->ticker_para}->{$data->ethusd_para}->{$data->ask_para}/$forex;
+                $result['xrpusd']['bid'] = $tickers->{$data->ticker_para}->{$data->xrpusd_para}->{$data->bid_para}/$forex;
+                $result['xrpusd']['ask'] = $tickers->{$data->ticker_para}->{$data->xrpusd_para}->{$data->ask_para}/$forex;
                 break;
             case 9:
+                $forex = Redis::get('TRY');
                 foreach ($tickers->{$data->ticker_para}->{$data->btcusd_para} as $key => $ticker) {
                     if ($ticker->currency == 'TRY') {
-                        $result['btcusd']['bid'] = $ticker->{$data->bid_para};
-                        $result['btcusd']['ask'] = $ticker->{$data->ask_para};
+                        $result['btcusd']['bid'] = $ticker->{$data->bid_para}/$forex;
+                        $result['btcusd']['ask'] = $ticker->{$data->ask_para}/$forex;
                     }
                 }
                 foreach ($tickers->{$data->ticker_para}->{$data->ethusd_para} as $key => $ticker) {
                     if ($ticker->currency == 'TRY') {
-                        $result['ethusd']['bid'] = $ticker->{$data->bid_para};
-                        $result['ethusd']['ask'] = $ticker->{$data->ask_para};
+                        $result['ethusd']['bid'] = $ticker->{$data->bid_para}/$forex;
+                        $result['ethusd']['ask'] = $ticker->{$data->ask_para}/$forex;
                     }
                 }
                 foreach ($tickers->{$data->ticker_para}->{$data->xrpusd_para} as $key => $ticker) {
                     if ($ticker->currency == 'TRY') {
-                        $result['xrpusd']['bid'] = $ticker->{$data->bid_para};
-                        $result['xrpusd']['ask'] = $ticker->{$data->ask_para};
+                        $result['xrpusd']['bid'] = $ticker->{$data->bid_para}/$forex;
+                        $result['xrpusd']['ask'] = $ticker->{$data->ask_para}/$forex;
                     }
                 }
                 
                 break;
             case 10:
-                $result['btcusd']['bid'] = $tickers->{$data->btcusd_para}->{$data->bid_para};
-                $result['btcusd']['ask'] = $tickers->{$data->btcusd_para}->{$data->ask_para};
-                $result['ethusd']['bid'] = $tickers->{$data->ethusd_para}->{$data->bid_para};
-                $result['ethusd']['ask'] = $tickers->{$data->ethusd_para}->{$data->ask_para};
-                $result['xrpusd']['bid'] = $tickers->{$data->xrpusd_para}->{$data->bid_para};
-                $result['xrpusd']['ask'] = $tickers->{$data->xrpusd_para}->{$data->ask_para};
+                $forex = Redis::get('INR');
+                $result['btcusd']['bid'] = $tickers->{$data->btcusd_para}->{$data->bid_para}/$forex;
+                $result['btcusd']['ask'] = $tickers->{$data->btcusd_para}->{$data->ask_para}/$forex;
+                $result['ethusd']['bid'] = $tickers->{$data->ethusd_para}->{$data->bid_para}/$forex;
+                $result['ethusd']['ask'] = $tickers->{$data->ethusd_para}->{$data->ask_para}/$forex;
+                $result['xrpusd']['bid'] = $tickers->{$data->xrpusd_para}->{$data->bid_para}/$forex;
+                $result['xrpusd']['ask'] = $tickers->{$data->xrpusd_para}->{$data->ask_para}/$forex;
                 break;
             case 11:
                 switch ($symbol) {
@@ -153,13 +167,38 @@ class TickerController extends Controller
                     case 'xrpusd_para':
                         $result['xrpusd']['bid'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[2];
                         $result['xrpusd']['ask'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[4];
+                        $result['exchange'] = $data->exchange;
+                        $result['logo'] = $data->second_url;
+                        $id .= 'xrp';
+                        break;
+                }
+                break;
+            case 12:
+                $forex = Redis::get('KRW');
+                switch ($symbol) {
+                    case 'btcusd_para':
+                        $result['btcusd']['bid'] = $tickers->bid[0]->price/$forex;
+                        $result['btcusd']['ask'] = $tickers->ask[0]->price/$forex;
+                        $id .= 'btc';
+                        break;
+                    
+                    case 'ethusd_para':
+                        $result['ethusd']['bid'] = $tickers->bid[0]->price/$forex;
+                        $result['ethusd']['ask'] = $tickers->ask[0]->price/$forex;
+                        $id .= 'eth';
+                        break;
+                    
+                    case 'xrpusd_para':
+                        $result['xrpusd']['bid'] = $tickers->bid[0]->price/$forex;
+                        $result['xrpusd']['ask'] = $tickers->ask[0]->price/$forex;
+                        $result['exchange'] = $data->exchange;
+                        $result['logo'] = $data->second_url;
                         $id .= 'xrp';
                         break;
                 }
                 break;
         }
-        $result['exchange'] = $data->exchange;
-        $result['logo'] = $data->second_url;
+       
         Redis::set('ticker'.$id, json_encode($result));
     }
 }

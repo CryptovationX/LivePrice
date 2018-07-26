@@ -91,5 +91,33 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.16/vue.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+
+        <script>
+
+            var socket = io('http://localhost:3000');
+
+            new Vue({
+                el: 'body',
+
+                data: {
+                    orderbooks: []
+                },
+
+                ready: function () {
+
+                    socket.on('orderbooks-channel:App\\Events\\OrderbookOmit', function (data) {
+                        
+                        this.orderbooks = JSON.parse(data.orderbooks);
+                        console.log(this.orderbooks);
+
+                    }.bind(this));
+                },
+
+            });
+
+        </script>
     </body>
 </html>
