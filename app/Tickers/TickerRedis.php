@@ -39,10 +39,12 @@ class TickerRedis
 
         $orderbooks = array();
         foreach ($tickers as $key => $ticker) {
-            $orderbooks[$key] = json_decode(Redis::get('ticker'.($key + 1)));
+            $orderbooks[$ticker->exchange] = json_decode(Redis::get('ticker'.($key + 1)));
         }
 
         $json = json_encode($orderbooks);
+
+        Redis::set('orderbook', $json);
 
         $result = event(new OrderbookOmit($json));
 
