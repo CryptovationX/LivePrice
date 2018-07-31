@@ -8,10 +8,10 @@ use App\Tickers\TickerAPI;
 
 class TestController extends Controller
 {
-    public function test()
+    public function test($id)
     {
         $controller = new TickerAPI;
-        $controller->getData(11);
+        $controller->getData($id);
 
         // $controller = new TickerRedis;
         // $controller->merge();
