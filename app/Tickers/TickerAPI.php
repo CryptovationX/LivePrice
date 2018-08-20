@@ -197,6 +197,31 @@ class TickerAPI
                         break;
                 }
                 break;
+            case 13:
+                $forex = Redis::get('THB');
+                switch ($symbol) {
+                    case 'btcusd_para':
+                        $result['btcusd']['bid'] = $tickers->Bid/$forex;
+                        $result['btcusd']['ask'] = $tickers->Ask/$forex;
+                        $id .= 'btc';
+                        break;
+                    
+                    case 'ethusd_para':
+                        $result['ethusd']['bid'] = $tickers->Bid/$forex;
+                        $result['ethusd']['ask'] = $tickers->Ask/$forex;
+                        $id .= 'eth';
+                        break;
+                    
+                    case 'xrpusd_para':
+                        $result['xrpusd']['bid'] = $tickers->Bid/$forex;
+                        $result['xrpusd']['ask'] = $tickers->Ask/$forex;
+                        $result['exchange'] = $data->exchange;
+                        $result['logo'] = $data->second_url;
+                        $id .= 'xrp';
+                        break;
+                }
+                break;
+        
         }
        
         Redis::set('ticker'.$id, json_encode($result));
