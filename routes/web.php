@@ -15,3 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('test/{id}', 'TestController@test');
+Route::get('line', 'TestController@line');
+Route::get('arbi', 'TestController@arbi');

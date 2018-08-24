@@ -221,6 +221,20 @@ class TickerAPI
                         break;
                 }
                 break;
+
+            case 14:
+                $forex = Redis::get('THB');
+                foreach ($tickers as $key => $ticker) {
+                    if ($ticker->{$data->symbol_para} == $data->btcusd_para) {
+                        $result['btcusd']['bid'] = $ticker->{$data->bid_para}/$forex;
+                        $result['btcusd']['ask'] = $ticker->{$data->ask_para}/$forex;
+                    }
+                    if ($ticker->{$data->symbol_para} == $data->ethusd_para) {
+                        $result['ethusd']['bid'] = $ticker->{$data->bid_para}/$forex;
+                        $result['ethusd']['ask'] = $ticker->{$data->ask_para}/$forex;
+                    }
+                }
+                break;
         
         }
        
