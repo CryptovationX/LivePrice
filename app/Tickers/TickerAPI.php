@@ -235,7 +235,13 @@ class TickerAPI
                     }
                 }
                 break;
+
+            case 15:
+                $result['btcusd']['bid'] = $tickers[1]->price;
+                $result['btcusd']['ask'] = $tickers[0]->price;
+                break;
         
+
         }
        
         Redis::set('ticker'.$id, json_encode($result));
