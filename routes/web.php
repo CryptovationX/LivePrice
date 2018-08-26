@@ -17,5 +17,5 @@ Route::get('/', function () {
 Route::get('test/{id}', 'TestController@test');
 Route::get('line', 'TestController@line');
 Route::get('arbi', 'TestController@arbi');
-Route::post('line/webhooks', 'Line\LINEController@receive');
+Route::get('line/webhooks', 'Line\LINEController@receive');
 Route::post('webhooks', 'Line\LINEController@receive');
