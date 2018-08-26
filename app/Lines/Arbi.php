@@ -71,7 +71,7 @@ class Arbi
         $thailand['eth']['profit'] = ($thailand['eth']['ask']['price'] - $thailand['eth']['bid']['price'])/$thailand['eth']['bid']['price']*100-0.5;
         // dd($thailand);
 
-        $response = "Arbitrage One-way (ตลาดไทย):";
+        $response = "Arbitrage (ตลาดไทย):";
         $response .= "\r\n• Bitcoin";
         $response .= " ได้กำไร: ". round($thailand['btc']['profit'], 2)."%";
         $response .= "\r\nถูกที่สุดที่ (". $thailand['btc']['bid']['exchange'] ."): ฿".number_format($thailand['btc']['bid']['price']*$forex, 2);
@@ -80,8 +80,8 @@ class Arbi
         $response .= " ได้กำไร: ". round($thailand['eth']['profit'], 2)."%";
         $response .= "\r\nถูกที่สุดที่ (". $thailand['eth']['bid']['exchange'] ."): ฿".number_format($thailand['eth']['bid']['price']*$forex, 2);
         $response .= "\r\nแพงที่สุดที่ (". $thailand['eth']['ask']['exchange'] ."): ฿".number_format($thailand['eth']['ask']['price']*$forex, 2);
-        $response .= "\r\n_________________________________";
-        $response .= "\r\n\r\nArbitrage One-way (ตลาดนอก):";
+        $response .= "\r\n_______________________________";
+        $response .= "\r\n\r\nArbitrage (ตลาดนอก):";
         $response .= "\r\n• Bitcoin";
         $response .= " ได้กำไร: ". round($worldwide['btc']['profit'], 2)."%";
         $response .= "\r\nถูกที่สุดที่ (". $worldwide['btc']['bid']['exchange'] ."): $".number_format($worldwide['btc']['bid']['price'], 2);
@@ -94,6 +94,6 @@ class Arbi
         $response .= "\r\n\r\nเพิ่มเติม: https://cryptovationx.io";
         $response .= "\r\n\r\n".now();
 
-        Line::pushText('C25cf6c120577cb6086ec575eb40cf6c6', $response);
+        Line::pushText('Ua2b3dd43fdfaf129015087ee98896a5a', $response);
     }
 }
