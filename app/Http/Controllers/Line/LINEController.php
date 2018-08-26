@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Line;
 use Illuminate\Support\Facades\Redis;
 use Line;
 use App\Ticker;
+use Illuminate\Http\Request;
 
 class LINEController extends Controller
 {
