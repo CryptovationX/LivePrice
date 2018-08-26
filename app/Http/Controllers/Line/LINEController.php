@@ -15,8 +15,8 @@ class LINEController extends Controller
     }
     public function receive(Request $request)
     {
-        $json = $request->getContent();
-        $info = json_decode($json, true);
+        // $json = $request->getContent();
+        // $info = json_decode($json, true);
         
         Line::pushText('Ua2b3dd43fdfaf129015087ee98896a5a', 'hi');
     }
