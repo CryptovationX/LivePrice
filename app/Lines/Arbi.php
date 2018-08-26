@@ -92,7 +92,8 @@ class Arbi
         $response .= "\r\nแพงที่สุดที่ (". $worldwide['eth']['ask']['exchange'] ."): $".number_format($worldwide['eth']['ask']['price'], 2);
         $response .= "\r\n\r\nคำเตือน: ความล่าช้าจากการอนุมัติถอนของบางตลาดและการยืนยันธุรกรรมบน Blockchain อาจทำให้มีความเสี่ยงที่ราคา ณ ตลาดปลายทางตกก่อนเหรียญไปถึงได้ จึงควรทำเมื่อกำไรมี % สูงๆ เท่านั้น";
         $response .= "\r\n\r\nเพิ่มเติม: https://cryptovationx.io";
+        $response .= "\r\n\r\n".now();
 
-        Line::pushText('Ua2b3dd43fdfaf129015087ee98896a5a', $response);
+        Line::pushText('C25cf6c120577cb6086ec575eb40cf6c6', $response);
     }
 }
