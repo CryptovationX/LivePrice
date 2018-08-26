@@ -36,9 +36,9 @@ class Arbi
                 $worldwide['eth']['ask']['exchange'] = $key;
             }
         }
+        // dd($worldwide);
         $worldwide['btc']['profit'] = ($worldwide['btc']['ask']['price'] - $worldwide['btc']['bid']['price'])/$worldwide['btc']['bid']['price']*100;
         $worldwide['eth']['profit'] = ($worldwide['eth']['ask']['price'] - $worldwide['eth']['bid']['price'])/$worldwide['eth']['bid']['price']*100;
-        // dd($worldwide);
 
         $thailand = array();
         $thailand['btc']['bid']['price'] = null;
@@ -71,25 +71,26 @@ class Arbi
         $thailand['eth']['profit'] = ($thailand['eth']['ask']['price'] - $thailand['eth']['bid']['price'])/$thailand['eth']['bid']['price']*100-0.5;
         // dd($thailand);
 
-        $response = "Arbitrage (ตลาดไทย):";
-        $response .= "\r\n---  Bitcoin  --- ";
-        $response .= "\r\nถูกที่สุด (". $thailand['btc']['bid']['exchange'] ."): ฿".number_format($thailand['btc']['bid']['price']*$forex, 2);
-        $response .= "\r\nแพงที่สุด (". $thailand['btc']['ask']['exchange'] ."): ฿".number_format($thailand['btc']['ask']['price']*$forex, 2);
-        $response .= "\r\nกำไร: ". round($thailand['btc']['profit'], 2)."%";
-        $response .= "\r\n---  Ethereum  --- ";
-        $response .= "\r\nถูกที่สุด (". $thailand['eth']['bid']['exchange'] ."): ฿".number_format($thailand['eth']['bid']['price']*$forex, 2);
-        $response .= "\r\nแพงที่สุด (". $thailand['eth']['ask']['exchange'] ."): ฿".number_format($thailand['eth']['ask']['price']*$forex, 2);
-        $response .= "\r\nกำไร: ". round($thailand['eth']['profit'], 2)."%";
+        $response = "Arbitrage One-way (ตลาดไทย):";
+        $response .= "\r\n• Bitcoin";
+        $response .= " ได้กำไร: ". round($thailand['btc']['profit'], 2)."%";
+        $response .= "\r\nถูกที่สุดที่ (". $thailand['btc']['bid']['exchange'] ."): ฿".number_format($thailand['btc']['bid']['price']*$forex, 2);
+        $response .= "\r\nแพงที่สุดที่ (". $thailand['btc']['ask']['exchange'] ."): ฿".number_format($thailand['btc']['ask']['price']*$forex, 2);
+        $response .= "\r\n• Ethereum";
+        $response .= " ได้กำไร: ". round($thailand['eth']['profit'], 2)."%";
+        $response .= "\r\nถูกที่สุดที่ (". $thailand['eth']['bid']['exchange'] ."): ฿".number_format($thailand['eth']['bid']['price']*$forex, 2);
+        $response .= "\r\nแพงที่สุดที่ (". $thailand['eth']['ask']['exchange'] ."): ฿".number_format($thailand['eth']['ask']['price']*$forex, 2);
         $response .= "\r\n_________________________________";
-        $response .= "\r\n\r\nArbitrage (International):";
-        $response .= "\r\n---  Bitcoin  --- ";
-        $response .= "\r\nถูกที่สุด (". $worldwide['btc']['bid']['exchange'] ."): $".number_format($worldwide['btc']['bid']['price'], 2);
-        $response .= "\r\nแพงที่สุด (". $worldwide['btc']['ask']['exchange'] ."): $".number_format($worldwide['btc']['ask']['price'], 2);
-        $response .= "\r\nกำไร: ". round($worldwide['btc']['profit'], 2)."%";
-        $response .= "\r\n---  Ethereum  --- ";
-        $response .= "\r\nถูกที่สุด (". $worldwide['eth']['bid']['exchange'] ."): $".number_format($worldwide['eth']['bid']['price'], 2);
-        $response .= "\r\nแพงที่สุด (". $worldwide['eth']['ask']['exchange'] ."): $".number_format($worldwide['eth']['ask']['price'], 2);
-        $response .= "\r\nกำไร: ". round($worldwide['eth']['profit'], 2)."%";
+        $response .= "\r\n\r\nArbitrage One-way (ตลาดนอก):";
+        $response .= "\r\n• Bitcoin";
+        $response .= " ได้กำไร: ". round($worldwide['btc']['profit'], 2)."%";
+        $response .= "\r\nถูกที่สุดที่ (". $worldwide['btc']['bid']['exchange'] ."): $".number_format($worldwide['btc']['bid']['price'], 2);
+        $response .= "\r\nแพงที่สุดที่ (". $worldwide['btc']['ask']['exchange'] ."): $".number_format($worldwide['btc']['ask']['price'], 2);
+        $response .= "\r\n• Ethereum";
+        $response .= " ได้กำไร: ". round($worldwide['eth']['profit'], 2)."%";
+        $response .= "\r\nถูกที่สุดที่ (". $worldwide['eth']['bid']['exchange'] ."): $".number_format($worldwide['eth']['bid']['price'], 2);
+        $response .= "\r\nแพงที่สุดที่ (". $worldwide['eth']['ask']['exchange'] ."): $".number_format($worldwide['eth']['ask']['price'], 2);
+        $response .= "\r\n\r\nคำเตือน: ความล่าช้าจากการอนุมัติถอนของบางตลาดและการยืนยันธุรกรรมบน Blockchain อาจทำให้มีความเสี่ยงที่ราคา ณ ตลาดปลายทางตกก่อนเหรียญไปถึงได้ จึงควรทำเมื่อกำไรมี % สูงๆ เท่านั้น";
         $response .= "\r\n\r\nเพิ่มเติม: https://cryptovationx.io";
 
         Line::pushText('Ua2b3dd43fdfaf129015087ee98896a5a', $response);
