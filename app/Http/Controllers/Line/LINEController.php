@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Line;
 
 use Illuminate\Support\Facades\Redis;
+use App\Http\Controllers\Controller;
 use Line;
 use App\Ticker;
 use Illuminate\Http\Request;
