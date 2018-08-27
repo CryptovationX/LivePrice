@@ -18,27 +18,33 @@ class Arbi
         foreach ($tickers as $key => $ticker) {
             switch ($ticker->pairing_id) {
                 case 1:
-                    $prices['Bitcoin'] = round($ticker->last_price, 2);
+                    $prices['Bitcoin']['price'] = round($ticker->last_price, 2);
+                    $prices['Bitcoin']['change'] = round($ticker->change, 2);
                     break;
                 
                 case 21:
-                    $prices['Ethereum'] = round($ticker->last_price, 2);
+                    $prices['Ethereum']['price'] = round($ticker->last_price, 2);
+                    $prices['Ethereum']['change'] = round($ticker->change, 2);
                     break;
                 
                 case 25:
-                    $prices['Ripple'] = round($ticker->last_price, 2);
+                    $prices['Ripple']['price'] = round($ticker->last_price, 2);
+                    $prices['Ripple']['change'] = round($ticker->change, 2);
                     break;
 
                 case 27:
-                    $prices['Bitcoin Cash'] = round($ticker->last_price, 2);
+                    $prices['Bitcoin Cash']['price'] = round($ticker->last_price, 2);
+                    $prices['Bitcoin Cash']['change'] = round($ticker->change, 2);
                     break;
                 
                 case 26:
-                    $prices['OmiseGo'] = round($ticker->last_price, 2);
+                    $prices['OmiseGo']['price'] = round($ticker->last_price, 2);
+                    $prices['OmiseGo']['change'] = round($ticker->change, 2);
                     break;
                 
                 case 29:
-                    $prices['ZCoin'] = round($ticker->last_price, 2);
+                    $prices['ZCoin']['price'] = round($ticker->last_price, 2);
+                    $prices['ZCoin']['change'] = round($ticker->change, 2);
                     break;
                 
                 }
@@ -48,9 +54,9 @@ class Arbi
         $message = "อัพเดทราคาคริปโต:\r\n";
 
         foreach ($prices as $key => $price) {
-            $message .= "\r\n".$key.": ฿".number_format($price);
+            $message .= "\r\n".$key.": ฿".number_format($price['price'], 2)." (".$price['change']."%)";
         }
-        $message .= "\r\n\r\nติดตามข่าวสารเพิ่มเติมได้ที่: fb.com/CryptonistOfficial";
+        $message .= "\r\n\r\nติดตามข่าวสารเพิ่มเติมได้ที่: https://cryptonist.co/";
 
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('q/Bds8sOv3E3oCpUt/nHFxw/2+BlFZA+9JsE6wR9WI5IsJTUfp5JnxFVR72u1rtW1/Ok5Txw8CDA+SgnZw2BYeM40C84LN81S3AanVx+JzaZ39gS1Ym5aDpukigE89e4nuOQacCybEwyKAP+9eXvNQdB04t89/1O/w1cDnyilFU=');
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'a8259507449b790200b74a8cce8c4b5b']);
