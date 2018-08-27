@@ -18,33 +18,33 @@ class Arbi
         foreach ($tickers as $key => $ticker) {
             switch ($ticker->pairing_id) {
                 case 1:
-                    $prices['Bitcoin']['price'] = round($ticker->last_price, 2);
-                    $prices['Bitcoin']['change'] = round($ticker->change, 2);
+                    $prices['Bitcoin']['price'] = number_format($ticker->last_price);
+                    $prices['Bitcoin']['change'] = number_format($ticker->change, 2);
                     break;
                 
                 case 21:
-                    $prices['Ethereum']['price'] = round($ticker->last_price, 2);
-                    $prices['Ethereum']['change'] = round($ticker->change, 2);
+                    $prices['Ethereum']['price'] = number_format($ticker->last_price);
+                    $prices['Ethereum']['change'] = number_format($ticker->change, 2);
                     break;
                 
                 case 25:
-                    $prices['Ripple']['price'] = round($ticker->last_price, 2);
-                    $prices['Ripple']['change'] = round($ticker->change, 2);
+                    $prices['Ripple']['price'] = number_format($ticker->last_price, 2);
+                    $prices['Ripple']['change'] = number_format($ticker->change, 2);
                     break;
 
                 case 27:
-                    $prices['Bitcoin Cash']['price'] = round($ticker->last_price, 2);
-                    $prices['Bitcoin Cash']['change'] = round($ticker->change, 2);
+                    $prices['Bitcoin Cash']['price'] = number_format($ticker->last_price);
+                    $prices['Bitcoin Cash']['change'] = number_format($ticker->change, 2);
                     break;
                 
                 case 26:
-                    $prices['OmiseGo']['price'] = round($ticker->last_price, 2);
-                    $prices['OmiseGo']['change'] = round($ticker->change, 2);
+                    $prices['OmiseGo']['price'] = number_format($ticker->last_price, 2);
+                    $prices['OmiseGo']['change'] = number_format($ticker->change, 2);
                     break;
                 
                 case 29:
-                    $prices['ZCoin']['price'] = round($ticker->last_price, 2);
-                    $prices['ZCoin']['change'] = round($ticker->change, 2);
+                    $prices['ZCoin']['price'] = number_format($ticker->last_price, 2);
+                    $prices['ZCoin']['change'] = number_format($ticker->change, 2);
                     break;
                 
                 }
@@ -54,7 +54,7 @@ class Arbi
         $message = "อัพเดทราคาคริปโต:\r\n";
 
         foreach ($prices as $key => $price) {
-            $message .= "\r\n".$key.": ฿".number_format($price['price'], 2)." (".$price['change']."%)";
+            $message .= "\r\n".$key.": ฿".$price['price']." (".$price['change']."%)";
         }
         $message .= "\r\n\r\nติดตามข่าวสารเพิ่มเติมได้ที่: https://cryptonist.co/";
 
