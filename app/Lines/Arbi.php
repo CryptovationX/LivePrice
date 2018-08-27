@@ -94,6 +94,6 @@ class Arbi
         $response .= "\r\n\r\nเพิ่มเติม: https://cryptovationx.io";
         $response .= "\r\n\r\n".now();
 
-        Line::pushText('Ua2b3dd43fdfaf129015087ee98896a5a', $response);
+        Line::pushText('C25cf6c120577cb6086ec575eb40cf6c6', $response);
     }
 }
