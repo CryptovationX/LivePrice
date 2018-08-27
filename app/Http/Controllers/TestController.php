@@ -32,4 +32,9 @@ class TestController extends Controller
         Arbi::Arbitrage();
         // Line::pushText('Ua2b3dd43fdfaf129015087ee98896a5a', 'hi');
     }
+
+    public function price()
+    {
+        Arbi::Price();
+    }
 }

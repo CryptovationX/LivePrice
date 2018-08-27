@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +19,6 @@ Route::get('/', function () {
 Route::get('test/{id}', 'TestController@test');
 Route::get('line', 'TestController@line');
 Route::get('arbi', 'TestController@arbi');
+Route::get('cryptonist', 'TestController@price');
 Route::get('line/webhooks', 'Line\LINEController@receive');
 Route::post('webhooks', 'Line\LINEController@receive');

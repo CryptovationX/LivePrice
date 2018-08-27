@@ -8,6 +8,57 @@ use App\Ticker;
 
 class Arbi
 {
+    public function Price()
+    {
+        $tickers = file_get_contents('https://bx.in.th/api/');
+        $tickers = json_decode($tickers);
+        $prics = array();
+
+        
+        foreach ($tickers as $key => $ticker) {
+            switch ($ticker->pairing_id) {
+                case 1:
+                    $prices['Bitcoin'] = round($ticker->last_price, 2);
+                    break;
+                
+                case 21:
+                    $prices['Ethereum'] = round($ticker->last_price, 2);
+                    break;
+                
+                case 25:
+                    $prices['Ripple'] = round($ticker->last_price, 2);
+                    break;
+
+                case 27:
+                    $prices['Bitcoin Cash'] = round($ticker->last_price, 2);
+                    break;
+                
+                case 26:
+                    $prices['OmiseGo'] = round($ticker->last_price, 2);
+                    break;
+                
+                case 29:
+                    $prices['ZCoin'] = round($ticker->last_price, 2);
+                    break;
+                
+                }
+        }
+        // dd($prices);
+
+        $message = "อัพเดทราคาคริปโต:\r\n";
+
+        foreach ($prices as $key => $price) {
+            $message .= "\r\n".$key.": ฿".number_format($price);
+        }
+        $message .= "\r\n\r\nติดตามข่าวสารเพิ่มเติมได้ที่: fb.com/CryptonistOfficial";
+
+        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('q/Bds8sOv3E3oCpUt/nHFxw/2+BlFZA+9JsE6wR9WI5IsJTUfp5JnxFVR72u1rtW1/Ok5Txw8CDA+SgnZw2BYeM40C84LN81S3AanVx+JzaZ39gS1Ym5aDpukigE89e4nuOQacCybEwyKAP+9eXvNQdB04t89/1O/w1cDnyilFU=');
+        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'a8259507449b790200b74a8cce8c4b5b']);
+
+        $messageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message);
+        $response = $bot->pushMessage('C640588da4778894a346a2c83a89e67eb', $messageBuilder);
+    }
+
     public function Arbitrage()
     {
         $orderbooks = json_decode(Redis::get('orderbook'));
