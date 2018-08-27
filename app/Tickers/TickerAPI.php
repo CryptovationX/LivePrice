@@ -46,6 +46,7 @@ class TickerAPI
                         $result['btcusd']['bid'] = $ticker->{$data->bid_para};
                         $result['btcusd']['ask'] = $ticker->{$data->ask_para};
                     }
+                    
                     if ($ticker->{$data->symbol_para} == $data->ethusd_para) {
                         $result['ethusd']['bid'] = $ticker->{$data->bid_para};
                         $result['ethusd']['ask'] = $ticker->{$data->ask_para};
@@ -55,6 +56,7 @@ class TickerAPI
                         $result['xrpusd']['ask'] = $ticker->{$data->ask_para};
                     }
                 }
+                dd($result);
                 break;
             
             case 2:
@@ -248,6 +250,34 @@ class TickerAPI
                 $result['btcusd']['bid'] = $tickers[1]->price;
                 $result['btcusd']['ask'] = $tickers[0]->price;
                 break;
+            case 16:
+                $tickers = $tickers->data->ticker;
+                // dd($tickers);
+                foreach ($tickers as $key => $ticker) {
+                    switch ($key) {
+                        case 'BTCUSDT':
+                            $result['btcusd']['bid'] = $ticker->buy;
+                            $result['btcusd']['ask'] = $ticker->sell;
+                            break;
+                        
+                        case 'ETHUSDT':
+                            $result['ethusd']['bid'] = $ticker->buy;
+                            $result['ethusd']['ask'] = $ticker->sell;
+                            break;
+
+                        case 'XRPUSDT':
+                            $result['xrpusd']['bid'] = $ticker->buy;
+                            $result['xrpusd']['ask'] = $ticker->sell;
+                            break;
+
+                        default:
+                            # code...
+                            break;
+                    }
+                }
+                dd($result);
+                break;
+
         
 
         }
