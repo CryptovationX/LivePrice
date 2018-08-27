@@ -275,7 +275,6 @@ class TickerAPI
                             break;
                     }
                 }
-                dd($result);
                 break;
 
         
