@@ -37,6 +37,7 @@ class TickerAPI
             $result['exchange'] = $data->exchange;
             $result['logo'] = $data->second_url;
             $result['link'] = $data->link;
+            $result['filter'] = $data->filter;
         }
         $tickers = json_decode($json);
         switch ($data->type) {
@@ -56,7 +57,6 @@ class TickerAPI
                         $result['xrpusd']['ask'] = $ticker->{$data->ask_para};
                     }
                 }
-                dd($result);
                 break;
             
             case 2:
@@ -177,6 +177,7 @@ class TickerAPI
                         $result['exchange'] = $data->exchange;
                         $result['logo'] = $data->second_url;
                         $result['link'] = $data->link;
+                        $result['filter'] = $data->filter;
                         $id .= 'xrp';
                         break;
                 }
@@ -202,6 +203,7 @@ class TickerAPI
                         $result['exchange'] = $data->exchange;
                         $result['logo'] = $data->second_url;
                         $result['link'] = $data->link;
+                        $result['filter'] = $data->filter;
                         $id .= 'xrp';
                         break;
                 }
@@ -227,6 +229,7 @@ class TickerAPI
                         $result['exchange'] = $data->exchange;
                         $result['logo'] = $data->second_url;
                         $result['link'] = $data->link;
+                        $result['filter'] = $data->filter;
                         $id .= 'xrp';
                         break;
                 }
