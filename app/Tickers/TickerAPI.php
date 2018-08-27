@@ -26,12 +26,17 @@ class TickerAPI
     {
         $result = array();
         $data = Ticker::find($id);
+        if (is_null($data->link)) {
+            $data->link = 'https://'.$data->exchange;
+        }
+
         if ($data->seperate==1) {
             $json = file_get_contents($data->url.$data->{$symbol});
         } else {
             $json = file_get_contents($data->url);
             $result['exchange'] = $data->exchange;
             $result['logo'] = $data->second_url;
+            $result['link'] = $data->link;
         }
         $tickers = json_decode($json);
         switch ($data->type) {
@@ -169,6 +174,7 @@ class TickerAPI
                         $result['xrpusd']['ask'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[4];
                         $result['exchange'] = $data->exchange;
                         $result['logo'] = $data->second_url;
+                        $result['link'] = $data->link;
                         $id .= 'xrp';
                         break;
                 }
@@ -193,6 +199,7 @@ class TickerAPI
                         $result['xrpusd']['ask'] = $tickers->ask[0]->price/$forex;
                         $result['exchange'] = $data->exchange;
                         $result['logo'] = $data->second_url;
+                        $result['link'] = $data->link;
                         $id .= 'xrp';
                         break;
                 }
@@ -217,6 +224,7 @@ class TickerAPI
                         $result['xrpusd']['ask'] = $tickers->Ask/$forex;
                         $result['exchange'] = $data->exchange;
                         $result['logo'] = $data->second_url;
+                        $result['link'] = $data->link;
                         $id .= 'xrp';
                         break;
                 }
