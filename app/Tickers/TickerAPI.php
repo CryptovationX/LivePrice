@@ -36,10 +36,10 @@ class TickerAPI
             $json = file_get_contents($data->url);
             $result['exchange'] = $data->exchange;
             $result['logo'] = $data->second_url;
-            $result['region'] = $data->region;
-            $result['country'] = $data->country;
             $result['link'] = $data->link;
             $result['filter'] = $data->filter;
+            $result['region'] = $data->region;
+            $result['country'] = $data->country;
         }
         $tickers = json_decode($json);
 
