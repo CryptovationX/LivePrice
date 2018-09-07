@@ -32,8 +32,11 @@ class TickerAPI
             $json = file_get_contents($data->url);
             $result['exchange'] = $data->exchange;
             $result['logo'] = $data->second_url;
+            $result['region'] = $data->region;
+            $result['country'] = $data->country;
         }
         $tickers = json_decode($json);
+
         switch ($data->type) {
             case 1:
                 foreach ($tickers as $key => $ticker) {
@@ -240,8 +243,25 @@ class TickerAPI
                 $result['btcusd']['bid'] = $tickers[1]->price;
                 $result['btcusd']['ask'] = $tickers[0]->price;
                 break;
-        
 
+            case 16:
+                foreach ($tickers->{$data->ticker_para} as $key => $ticker) {
+                    if ($ticker->{$data->symbol_para} == $data->btcusd_para) {
+                        $result['btcusd']['bid'] = $ticker->open;
+                        $result['btcusd']['ask'] = $ticker->close;
+                    }
+                    if ($ticker->{$data->symbol_para} == $data->ethusd_para) {
+                        $result['ethusd']['bid'] = $ticker->open;
+                        $result['ethusd']['ask'] = $ticker->close;
+                    }
+                    if ($ticker->{$data->symbol_para} == $data->xrpusd_para) {
+                        $result['xrpusd']['bid'] = $ticker->open;
+                        $result['xrpusd']['ask'] = $ticker->close;
+                    }
+                }
+                dd($result);
+                break;
+        
         }
        
         Redis::set('ticker'.$id, json_encode($result));
