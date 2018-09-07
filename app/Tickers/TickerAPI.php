@@ -181,6 +181,8 @@ class TickerAPI
                         $result['logo'] = $data->second_url;
                         $result['link'] = $data->link;
                         $result['filter'] = $data->filter;
+                        $result['region'] = $data->region;
+                        $result['country'] = $data->country;
                         $id .= 'xrp';
                         break;
                 }
@@ -207,6 +209,8 @@ class TickerAPI
                         $result['logo'] = $data->second_url;
                         $result['link'] = $data->link;
                         $result['filter'] = $data->filter;
+                        $result['region'] = $data->region;
+                        $result['country'] = $data->country;
                         $id .= 'xrp';
                         break;
                 }
@@ -233,6 +237,8 @@ class TickerAPI
                         $result['logo'] = $data->second_url;
                         $result['link'] = $data->link;
                         $result['filter'] = $data->filter;
+                        $result['region'] = $data->region;
+                        $result['country'] = $data->country;
                         $id .= 'xrp';
                         break;
                 }
