@@ -42,7 +42,7 @@ class TickerAPI
             $result['country'] = $data->country;
         }
         $tickers = json_decode($json);
-
+       
         switch ($data->type) {
             case 1:
                 foreach ($tickers as $key => $ticker) {
