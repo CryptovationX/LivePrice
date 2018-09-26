@@ -5,6 +5,7 @@ namespace App\Tickers;
 use App\Ticker;
 use Illuminate\Support\Facades\Redis;
 use App\Events\OrderbookOmit;
+use App\Forex;
 
 class TickerRedis
 {
@@ -50,4 +51,14 @@ class TickerRedis
 
         return $result;
     }
+
+    public function forexReds()
+    {
+        $data = Forex::find(1);
+        Redis::set('THB', $data['THB']);
+        Redis::set('INR', $data['INR']);
+        Redis::set('KRW', $data['KRW']);
+        Redis::set('TRY', $data['TRY']);
+    }
+
 }
