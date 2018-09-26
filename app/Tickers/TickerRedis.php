@@ -52,7 +52,7 @@ class TickerRedis
         return $result;
     }
 
-    public function forexReds()
+    public function forexRedis()
     {
         $data = Forex::find(1);
         Redis::set('THB', $data['THB']);
