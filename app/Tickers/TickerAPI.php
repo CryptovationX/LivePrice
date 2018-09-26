@@ -4,6 +4,7 @@ namespace App\Tickers;
 
 use App\Ticker;
 use Illuminate\Support\Facades\Redis;
+use App\Forex;
 
 class TickerAPI
 {
@@ -16,10 +17,27 @@ class TickerAPI
     {
         $json = file_get_contents('http://apilayer.net/api/live?access_key=388c98963b910615abafe67e5d0d6bc5&currencies=THB,INR,KRW,TRY');
         $forex = json_decode($json);
-        Redis::set('THB', $forex->quotes->USDTHB);
-        Redis::set('INR', $forex->quotes->USDINR);
-        Redis::set('KRW', $forex->quotes->USDKRW);
-        Redis::set('TRY', $forex->quotes->USDTRY);
+        
+        $data;
+
+        $data = Forex::find(1);
+
+        $data['THB'] = $forex->quotes->USDTHB;
+        $data['INR'] = $forex->quotes->USDINR;
+        $data['KRW'] = $forex->quotes->USDKRW;
+        $data['TRY'] = $forex->quotes->USDTRY;
+        
+        $data->save();
+
+    }
+
+    public function forexRedis()
+    {
+        $data = Forex::find(1);
+        Redis::set('THB', $data['THB']);
+        Redis::set('INR', $data['INR']);
+        Redis::set('KRW', $data['KRW']);
+        Redis::set('TRY', $data['TRY']);
     }
 
     public function getData($id, $symbol = null)

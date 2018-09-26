@@ -13,7 +13,8 @@ class TestController extends Controller
     public function test($id)
     {
         $controller = new TickerAPI;
-        $controller->getData($id, 'btcusd_para');
+        // $controller->getData($id, 'btcusd_para');
+        $controller->forexRedis();
         // $controller->forex();
 
         // $controller = new TickerRedis;

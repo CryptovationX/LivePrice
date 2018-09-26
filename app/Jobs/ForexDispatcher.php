@@ -7,11 +7,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Tickers\TickerRedis;
 
-use Carbon\Carbon;
-use App\Ticker;
-
-class onesecJobDispatcher implements ShouldQueue
+class OrderDispatcher implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -32,14 +30,7 @@ class onesecJobDispatcher implements ShouldQueue
      */
     public function handle()
     {
-        onesecJobDispatcher::dispatch()->delay(Carbon::now()->addSeconds(1));
-        OrderDispatcher::dispatch();
-        ForexDispatcher::dispatch();
-        $tickers = Ticker::all();
-        foreach ($tickers as $key => $ticker) {
-            if ($ticker->interval == 1 && $ticker->seperate != 1) {
-                JobDispatcher::dispatch($ticker->id);
-            }
-        }
+        $controller = new TickerRedis;
+        $controller->forexRedis();
     }
 }
