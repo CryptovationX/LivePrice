@@ -49,6 +49,7 @@ class TickerAPI
             $result['filter'] = $data->filter;
             $result['region'] = $data->region;
             $result['country'] = $data->country;
+            $result['id'] = $data->id;
         }
         $tickers = json_decode($json);
        
@@ -192,6 +193,7 @@ class TickerAPI
                         $result['filter'] = $data->filter;
                         $result['region'] = $data->region;
                         $result['country'] = $data->country;
+                        $result['id'] = $data->id;
                         $id .= 'xrp';
                         break;
                 }
@@ -220,6 +222,7 @@ class TickerAPI
                         $result['filter'] = $data->filter;
                         $result['region'] = $data->region;
                         $result['country'] = $data->country;
+                        $result['id'] = $data->id;
                         $id .= 'xrp';
                         break;
                 }
@@ -248,6 +251,7 @@ class TickerAPI
                         $result['filter'] = $data->filter;
                         $result['region'] = $data->region;
                         $result['country'] = $data->country;
+                        $result['id'] = $data->id;
                         $id .= 'xrp';
                         break;
                 }
