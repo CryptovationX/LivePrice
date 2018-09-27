@@ -43,14 +43,8 @@ class TickerAPI
             $json = file_get_contents($data->url.$data->{$symbol});
         } else {
             $json = file_get_contents($data->url);
-            $result['exchange'] = $data->exchange;
-            $result['logo'] = $data->second_url;
-            $result['link'] = $data->link;
-            $result['filter'] = $data->filter;
-            $result['region'] = $data->region;
-            $result['country'] = $data->country;
-            $result['id'] = $data->id;
-        }
+			$result = $this->setParameters($data, $result);
+		}
         $tickers = json_decode($json);
        
         switch ($data->type) {
@@ -187,14 +181,8 @@ class TickerAPI
                     case 'xrpusd_para':
                         $result['xrpusd']['bid'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[2];
                         $result['xrpusd']['ask'] = $tickers->{$data->ticker_para}->{$data->symbol_para}[4];
-                        $result['exchange'] = $data->exchange;
-                        $result['logo'] = $data->second_url;
-                        $result['link'] = $data->link;
-                        $result['filter'] = $data->filter;
-                        $result['region'] = $data->region;
-                        $result['country'] = $data->country;
-                        $result['id'] = $data->id;
-                        $id .= 'xrp';
+						$result = $this->setParameters($data, $result);
+						$id .= 'xrp';
                         break;
                 }
                 break;
@@ -216,14 +204,8 @@ class TickerAPI
                     case 'xrpusd_para':
                         $result['xrpusd']['bid'] = $tickers->bid[0]->price/$forex;
                         $result['xrpusd']['ask'] = $tickers->ask[0]->price/$forex;
-                        $result['exchange'] = $data->exchange;
-                        $result['logo'] = $data->second_url;
-                        $result['link'] = $data->link;
-                        $result['filter'] = $data->filter;
-                        $result['region'] = $data->region;
-                        $result['country'] = $data->country;
-                        $result['id'] = $data->id;
-                        $id .= 'xrp';
+						$result = $this->setParameters($data, $result);
+						$id .= 'xrp';
                         break;
                 }
                 break;
@@ -245,14 +227,8 @@ class TickerAPI
                     case 'xrpusd_para':
                         $result['xrpusd']['bid'] = $tickers->Bid/$forex;
                         $result['xrpusd']['ask'] = $tickers->Ask/$forex;
-                        $result['exchange'] = $data->exchange;
-                        $result['logo'] = $data->second_url;
-                        $result['link'] = $data->link;
-                        $result['filter'] = $data->filter;
-                        $result['region'] = $data->region;
-                        $result['country'] = $data->country;
-                        $result['id'] = $data->id;
-                        $id .= 'xrp';
+						$result = $this->setParameters($data, $result);
+						$id .= 'xrp';
                         break;
                 }
                 break;
@@ -298,4 +274,22 @@ class TickerAPI
        
         Redis::set('ticker'.$id, json_encode($result));
     }
+
+	/**
+	 * @param $data
+	 * @param $result
+	 * @return mixed
+	 */
+	protected function setParameters($data, $result)
+	{
+		$result['exchange'] = $data->exchange;
+		$result['logo']     = $data->second_url;
+		$result['link']     = $data->link;
+		$result['filter']   = $data->filter;
+		$result['region']   = $data->region;
+		$result['country']  = $data->country;
+		$result['id']       = $data->id;
+
+		return $result;
+	}
 }
