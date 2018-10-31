@@ -290,6 +290,7 @@ class TickerAPI
         $result['id']       = $data->id;
         $result['feemaker'] = $data->feemaker;
         $result['feetaker'] = $data->feetaker;
+        $result['flag']     = $data->flag;
         return $result;
     }
 }
