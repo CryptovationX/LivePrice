@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "570887a7f500eb53feaee4b0ed6c6816",
+    "content-hash": "b36de7a7b089d327d5eef73cc3c4798c",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -741,21 +741,23 @@
         },
         {
             "name": "linecorp/line-bot-sdk",
-            "version": "3.3.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/line/line-bot-sdk-php.git",
-                "reference": "1f3f4860a9146b486d211ad92224c90baf5bf130"
+                "reference": "3cf91f95f1e07b8c84a6e02b8afc947ea37984c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/1f3f4860a9146b486d211ad92224c90baf5bf130",
-                "reference": "1f3f4860a9146b486d211ad92224c90baf5bf130",
+                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/3cf91f95f1e07b8c84a6e02b8afc947ea37984c6",
+                "reference": "3cf91f95f1e07b8c84a6e02b8afc947ea37984c6",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
+                "ext-posix": "*",
+                "ext-sockets": "*",
                 "php": ">=5.5"
             },
             "require-dev": {
@@ -804,7 +806,7 @@
                 "line",
                 "sdk"
             ],
-            "time": "2018-08-21T08:38:56+00:00"
+            "time": "2018-10-26T08:48:34+00:00"
         },
         {
             "name": "monolog/monolog",
