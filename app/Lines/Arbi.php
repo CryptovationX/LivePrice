@@ -89,7 +89,7 @@ class Arbi
 					break;
 
 				case 29:
-					$prices['ZCoin']['price']  = number_format($ticker->last_price) . ' THB';
+					$prices['ZCoin']['price']  = number_format($ticker->last_price, 2) . ' THB';
 					if ($ticker->change >= 0)
 					{
 						$prices['ZCoin']['color'] = '#7bb200';
