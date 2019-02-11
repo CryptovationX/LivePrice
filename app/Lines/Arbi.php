@@ -179,7 +179,7 @@ class Arbi
 										BoxComponentBuilder::builder()
 											->setMargin('xl')
 											->setAction(
-												new UriTemplateActionBuilder('Bitcoin', 'https://info.binance.com/en/currencies/bitcoin')
+												new UriTemplateActionBuilder('Bitcoin', 'https://info.binance.com/en?ref=11125918/currencies/bitcoin')
 											)
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setContents([
@@ -213,7 +213,7 @@ class Arbi
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setMargin('md')
 											->setAction(
-												new UriTemplateActionBuilder('Ethereum', 'https://info.binance.com/en/currencies/ethereum')
+												new UriTemplateActionBuilder('Ethereum', 'https://info.binance.com/en?ref=11125918/currencies/ethereum')
 											)
 											->setContents([
 												BoxComponentBuilder::builder()
@@ -245,7 +245,7 @@ class Arbi
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setMargin('md')
 											->setAction(
-												new UriTemplateActionBuilder('Omise Go', 'https://info.binance.com/en/currencies/omisego')
+												new UriTemplateActionBuilder('Omise Go', 'https://info.binance.com/en?ref=11125918/currencies/omisego')
 											)
 											->setContents([
 												BoxComponentBuilder::builder()
@@ -277,7 +277,7 @@ class Arbi
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setMargin('md')
 											->setAction(
-												new UriTemplateActionBuilder('Ripple', 'https://info.binance.com/en/currencies/ripple')
+												new UriTemplateActionBuilder('Ripple', 'https://info.binance.com/en?ref=11125918/currencies/ripple')
 											)
 											->setContents([
 												BoxComponentBuilder::builder()
@@ -309,7 +309,7 @@ class Arbi
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setMargin('md')
 											->setAction(
-												new UriTemplateActionBuilder('Bitcoin Cash', 'https://info.binance.com/en/currencies/bitcoin-cash-abc')
+												new UriTemplateActionBuilder('Bitcoin Cash', 'https://info.binance.com/en?ref=11125918/currencies/bitcoin-cash-abc')
 											)
 											->setContents([
 												BoxComponentBuilder::builder()
@@ -361,7 +361,7 @@ class Arbi
 										BoxComponentBuilder::builder()
 											->setMargin('xl')
 											->setAction(
-												new UriTemplateActionBuilder('Litecoin', 'https://info.binance.com/en/currencies/litecoin')
+												new UriTemplateActionBuilder('Litecoin', 'https://info.binance.com/en?ref=11125918/currencies/litecoin')
 											)
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setContents([
@@ -395,7 +395,7 @@ class Arbi
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setMargin('md')
 											->setAction(
-												new UriTemplateActionBuilder('EOS', 'https://info.binance.com/en/currencies/eos')
+												new UriTemplateActionBuilder('EOS', 'https://info.binance.com/en?ref=11125918/currencies/eos')
 											)
 											->setContents([
 												BoxComponentBuilder::builder()
@@ -427,7 +427,7 @@ class Arbi
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setMargin('md')
 											->setAction(
-												new UriTemplateActionBuilder('Dash', 'https://info.binance.com/en/currencies/dash')
+												new UriTemplateActionBuilder('Dash', 'https://info.binance.com/en?ref=11125918/currencies/dash')
 											)
 											->setContents([
 												BoxComponentBuilder::builder()
@@ -460,7 +460,7 @@ class Arbi
 											->setLayout(ComponentLayout::HORIZONTAL)
 											->setMargin('md')
 											->setAction(
-												new UriTemplateActionBuilder('ZCash', 'https://info.binance.com/en/currencies/zcash')
+												new UriTemplateActionBuilder('ZCash', 'https://info.binance.com/en?ref=11125918/currencies/zcash')
 											)
 											->setContents([
 												BoxComponentBuilder::builder()
