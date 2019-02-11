@@ -30,6 +30,7 @@ class Arbi
 			{
 				case 1:
 					$prices['Bitcoin']['price'] = number_format($ticker->last_price) . ' THB';
+					$btcprice = $ticker->last_price;
 					if ($ticker->change >= 0)
 					{
 						$prices['Bitcoin']['color'] = '#7bb200';
@@ -41,7 +42,7 @@ class Arbi
 					break;
 
 				case 21:
-					$prices['Ethereum']['price']  = number_format($ticker->last_price) . ' THB';
+					$prices['Ethereum']['price'] = number_format($ticker->last_price) . ' THB';
 					if ($ticker->change >= 0)
 					{
 						$prices['Ethereum']['color'] = '#7bb200';
@@ -53,7 +54,7 @@ class Arbi
 					break;
 
 				case 25:
-					$prices['Ripple']['price']  = number_format($ticker->last_price, 2) . ' THB';
+					$prices['Ripple']['price'] = number_format($ticker->last_price, 2) . ' THB';
 					if ($ticker->change >= 0)
 					{
 						$prices['Ripple']['color'] = '#7bb200';
@@ -65,7 +66,7 @@ class Arbi
 					break;
 
 				case 27:
-					$prices['Bitcoin Cash']['price']  = number_format($ticker->last_price) . ' THB';
+					$prices['Bitcoin Cash']['price'] = number_format($ticker->last_price) . ' THB';
 					if ($ticker->change >= 0)
 					{
 						$prices['Bitcoin Cash']['color'] = '#7bb200';
@@ -77,7 +78,7 @@ class Arbi
 					break;
 
 				case 26:
-					$prices['OmiseGo']['price']  = number_format($ticker->last_price, 2) . ' THB';
+					$prices['OmiseGo']['price'] = number_format($ticker->last_price, 2) . ' THB';
 					if ($ticker->change >= 0)
 					{
 						$prices['OmiseGo']['color'] = '#7bb200';
@@ -88,16 +89,65 @@ class Arbi
 					$prices['OmiseGo']['change'] = number_format($ticker->change, 2) . '%';
 					break;
 
-				case 29:
-					$prices['ZCoin']['price']  = number_format($ticker->last_price, 2) . ' THB';
+				case 22:
+					$prices['Dash']['price'] = number_format($ticker->last_price) . ' THB';
 					if ($ticker->change >= 0)
 					{
-						$prices['ZCoin']['color'] = '#7bb200';
+						$prices['Dash']['color'] = '#7bb200';
 					} else
 					{
-						$prices['ZCoin']['color'] = '#ed027b';
+						$prices['Dash']['color'] = '#ed027b';
 					}
-					$prices['ZCoin']['change'] = number_format($ticker->change, 2) . '%';
+					$prices['Dash']['change'] = number_format($ticker->change, 2) . '%';
+					break;
+
+				case 33:
+					$prices['EOS']['price'] = number_format($ticker->last_price, 2) . ' THB';
+					if ($ticker->change >= 0)
+					{
+						$prices['EOS']['color'] = '#7bb200';
+					} else
+					{
+						$prices['EOS']['color'] = '#ed027b';
+					}
+					$prices['EOS']['change'] = number_format($ticker->change, 2) . '%';
+					break;
+
+
+				case 8:
+					$prices['Zcash']['price'] = number_format($ticker->last_price * $btcprice) . ' THB';
+					if ($ticker->change >= 0)
+					{
+						$prices['Zcash']['color'] = '#7bb200';
+					} else
+					{
+						$prices['Zcash']['color'] = '#ed027b';
+					}
+					$prices['Zcash']['change'] = number_format($ticker->change, 2) . '%';
+					break;
+
+				case 35:
+					$prices['Gusd']['price'] = number_format($ticker->last_price, 2) . ' THB';
+					if ($ticker->change >= 0)
+					{
+						$prices['Gusd']['color'] = '#7bb200';
+					} else
+					{
+						$prices['Gusd']['color'] = '#ed027b';
+					}
+					$prices['Gusd']['change'] = number_format($ticker->change, 2) . '%';
+					break;
+
+				case 30:
+					$prices['Litecoin']['price'] = number_format($ticker->last_price) . ' THB';
+					if ($ticker->change >= 0)
+					{
+						$prices['Litecoin']['color'] = '#7bb200';
+					} else
+					{
+						$prices['Litecoin']['color'] = '#ed027b';
+					}
+					$prices['Litecoin']['change'] = number_format($ticker->change, 2) . '%';
 					break;
 
 			}
@@ -106,221 +156,371 @@ class Arbi
 		$bubble = FlexMessageBuilder::builder()
 			->setAltText('Cryptonist Price')
 			->setContents(
-
-				BubbleContainerBuilder::builder()
-					->setDirection('ltr')
-					->setHero(
-						ImageComponentBuilder::builder()
-							->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/Cryptonist_Banner.png')
-							->setSize('full')
-							->setAspectRatio('1024:174')
-							->setAspectMode('cover')
-							->setAction(
-								new UriTemplateActionBuilder('Cryptonist', 'https://cryptonist.co/')
+				CarouselContainerBuilder::builder()
+					->setContents([
+						BubbleContainerBuilder::builder()
+							->setDirection('ltr')
+							->setHero(
+								ImageComponentBuilder::builder()
+									->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/Cryptonist_Banner.png')
+									->setSize('full')
+									->setAspectRatio('1024:174')
+									->setAspectMode('cover')
+									->setAction(
+										new UriTemplateActionBuilder('Cryptonis', 'https://cryptonist.co/')
+									)
 							)
-					)
-					->setBody(
-						BoxComponentBuilder::builder()
-							->setLayout(ComponentLayout::VERTICAL)
-							->setContents([
-								SeparatorComponentBuilder::builder()
-									->setMargin('none'),
+							->setBody(
 								BoxComponentBuilder::builder()
-									->setMargin('xl')
-									->setAction(
-										new UriTemplateActionBuilder('Bitcoin', 'https://info.binance.com/en/currencies/bitcoin')
-									)
-									->setLayout(ComponentLayout::HORIZONTAL)
+									->setLayout(ComponentLayout::VERTICAL)
 									->setContents([
+										SeparatorComponentBuilder::builder()
+											->setMargin('none'),
 										BoxComponentBuilder::builder()
-											->setLayout(ComponentLayout::VERTICAL)
-											->setFlex(3)
+											->setMargin('xl')
+											->setAction(
+												new UriTemplateActionBuilder('Bitcoin', 'https://info.binance.com/en/currencies/bitcoin')
+											)
+											->setLayout(ComponentLayout::HORIZONTAL)
 											->setContents([
-												ImageComponentBuilder::builder()
-													->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+8.png')
-													->setAlign('center')
-													->setSize('xxs'),
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+8.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('Bitcoin')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+													]),
 												TextComponentBuilder::builder()
-													->setText('Bitcoin')
-													->setMargin('xs')
-													->setSize('xxs')
-													->setAlign('center')
+													->setText($prices['Bitcoin']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['Bitcoin']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['Bitcoin']['color'])
 											]),
-										TextComponentBuilder::builder()
-											->setText($prices['Bitcoin']['price'])
-											->setFlex(7)
-											->setMargin('xxl')
-											->setGravity('center'),
-										TextComponentBuilder::builder()
-											->setText($prices['Bitcoin']['change'])
-											->setFlex(3)
-											->setGravity('center')
-											->setColor($prices['Bitcoin']['color'])
-									]),
 
-								BoxComponentBuilder::builder()
-									->setLayout(ComponentLayout::HORIZONTAL)
-									->setMargin('md')
-									->setAction(
-										new UriTemplateActionBuilder('Ethereum', 'https://info.binance.com/en/currencies/ethereum')
-									)
-									->setContents([
 										BoxComponentBuilder::builder()
-											->setLayout(ComponentLayout::VERTICAL)
-											->setFlex(3)
+											->setLayout(ComponentLayout::HORIZONTAL)
+											->setMargin('md')
+											->setAction(
+												new UriTemplateActionBuilder('Ethereum', 'https://info.binance.com/en/currencies/ethereum')
+											)
 											->setContents([
-												ImageComponentBuilder::builder()
-													->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+9.png')
-													->setAlign('center')
-													->setSize('xxs'),
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+9.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('Ethereum')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+													]),
 												TextComponentBuilder::builder()
-													->setText('Ethereum')
-													->setMargin('xs')
-													->setSize('xxs')
-													->setAlign('center')
+													->setText($prices['Ethereum']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['Ethereum']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['Ethereum']['color'])
 											]),
-										TextComponentBuilder::builder()
-											->setText($prices['Ethereum']['price'])
-											->setFlex(7)
-											->setMargin('xxl')
-											->setGravity('center'),
-										TextComponentBuilder::builder()
-											->setText($prices['Ethereum']['change'])
-											->setFlex(3)
-											->setGravity('center')
-											->setColor($prices['Ethereum']['color'])
-									]),
-								BoxComponentBuilder::builder()
-									->setLayout(ComponentLayout::HORIZONTAL)
-									->setMargin('md')
-									->setAction(
-										new UriTemplateActionBuilder('Bitcoin Cash', 'https://info.binance.com/en/currencies/bitcoin-cash-abc')
-									)
-									->setContents([
 										BoxComponentBuilder::builder()
-											->setLayout(ComponentLayout::VERTICAL)
-											->setFlex(3)
+											->setLayout(ComponentLayout::HORIZONTAL)
+											->setMargin('md')
+											->setAction(
+												new UriTemplateActionBuilder('Omise Go', 'https://info.binance.com/en/currencies/omisego')
+											)
 											->setContents([
-												ImageComponentBuilder::builder()
-													->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+10.png')
-													->setAlign('center')
-													->setSize('xxs'),
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+11.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('Omise Go')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+													]),
 												TextComponentBuilder::builder()
-													->setText('Bitcoin Cash')
-													->setMargin('xs')
-													->setSize('xxs')
-													->setAlign('center')
-													->setWrap(true)
+													->setText($prices['OmiseGo']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['OmiseGo']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['OmiseGo']['color'])
 											]),
-										TextComponentBuilder::builder()
-											->setText($prices['Bitcoin Cash']['price'])
-											->setFlex(7)
-											->setMargin('xxl')
-											->setGravity('center'),
-										TextComponentBuilder::builder()
-											->setText($prices['Bitcoin Cash']['change'])
-											->setFlex(3)
-											->setGravity('center')
-											->setColor($prices['Bitcoin Cash']['color'])
-									]),
-								BoxComponentBuilder::builder()
-									->setLayout(ComponentLayout::HORIZONTAL)
-									->setMargin('md')
-									->setAction(
-										new UriTemplateActionBuilder('Omise Go', 'https://info.binance.com/en/currencies/omisego')
-									)
-									->setContents([
 										BoxComponentBuilder::builder()
-											->setLayout(ComponentLayout::VERTICAL)
-											->setFlex(3)
+											->setLayout(ComponentLayout::HORIZONTAL)
+											->setMargin('md')
+											->setAction(
+												new UriTemplateActionBuilder('Ripple', 'https://info.binance.com/en/currencies/ripple')
+											)
 											->setContents([
-												ImageComponentBuilder::builder()
-													->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+11.png')
-													->setAlign('center')
-													->setSize('xxs'),
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+12x.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('Ripple')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+													]),
 												TextComponentBuilder::builder()
-													->setText('Omise Go')
-													->setMargin('xs')
-													->setSize('xxs')
-													->setAlign('center')
+													->setText($prices['Ripple']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['Ripple']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['Ripple']['color'])
 											]),
-										TextComponentBuilder::builder()
-											->setText($prices['OmiseGo']['price'])
-											->setFlex(7)
-											->setMargin('xxl')
-											->setGravity('center'),
-										TextComponentBuilder::builder()
-											->setText($prices['OmiseGo']['change'])
-											->setFlex(3)
-											->setGravity('center')
-											->setColor($prices['OmiseGo']['color'])
-									]),
-								BoxComponentBuilder::builder()
-									->setLayout(ComponentLayout::HORIZONTAL)
-									->setMargin('md')
-									->setAction(
-										new UriTemplateActionBuilder('Ripple', 'https://info.binance.com/en/currencies/ripple')
-									)
-									->setContents([
 										BoxComponentBuilder::builder()
-											->setLayout(ComponentLayout::VERTICAL)
-											->setFlex(3)
+											->setLayout(ComponentLayout::HORIZONTAL)
+											->setMargin('md')
+											->setAction(
+												new UriTemplateActionBuilder('Bitcoin Cash', 'https://info.binance.com/en/currencies/bitcoin-cash-abc')
+											)
 											->setContents([
-												ImageComponentBuilder::builder()
-													->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+12x.png')
-													->setAlign('center')
-													->setSize('xxs'),
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+10.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('Bitcoin Cash')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+															->setWrap(true)
+													]),
 												TextComponentBuilder::builder()
-													->setText('Ripple')
-													->setMargin('xs')
-													->setSize('xxs')
-													->setAlign('center')
+													->setText($prices['Bitcoin Cash']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['Bitcoin Cash']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['Bitcoin Cash']['color'])
 											]),
-										TextComponentBuilder::builder()
-											->setText($prices['Ripple']['price'])
-											->setFlex(7)
-											->setMargin('xxl')
-											->setGravity('center'),
-										TextComponentBuilder::builder()
-											->setText($prices['Ripple']['change'])
-											->setFlex(3)
-											->setGravity('center')
-											->setColor($prices['Ripple']['color'])
-									]),
-								BoxComponentBuilder::builder()
-									->setLayout(ComponentLayout::HORIZONTAL)
-									->setMargin('md')
+									])
+							),
+						BubbleContainerBuilder::builder()
+							->setDirection('ltr')
+							->setHero(
+								ImageComponentBuilder::builder()
+									->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/Cryptonist_Banner.png')
+									->setSize('full')
+									->setAspectRatio('1024:174')
+									->setAspectMode('cover')
 									->setAction(
-										new UriTemplateActionBuilder('ZCoin', 'https://info.binance.com/en/currencies/zcoin')
+										new UriTemplateActionBuilder('Cryptonist', 'https://cryptonist.co/')
 									)
+							)
+							->setBody(
+								BoxComponentBuilder::builder()
+									->setLayout(ComponentLayout::VERTICAL)
 									->setContents([
+										SeparatorComponentBuilder::builder()
+											->setMargin('none'),
 										BoxComponentBuilder::builder()
-											->setLayout(ComponentLayout::VERTICAL)
-											->setFlex(3)
+											->setMargin('xl')
+											->setAction(
+												new UriTemplateActionBuilder('Litecoin', 'https://info.binance.com/en/currencies/litecoin')
+											)
+											->setLayout(ComponentLayout::HORIZONTAL)
 											->setContents([
-												ImageComponentBuilder::builder()
-													->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+13.png')
-													->setAlign('center')
-													->setSize('xxs'),
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+15.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('Litecoin')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+													]),
 												TextComponentBuilder::builder()
-													->setText('ZCoin')
-													->setMargin('xs')
-													->setSize('xxs')
-													->setAlign('center')
+													->setText($prices['Litecoin']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['Litecoin']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['Litecoin']['color'])
 											]),
-										TextComponentBuilder::builder()
-											->setText($prices['ZCoin']['price'])
-											->setFlex(7)
-											->setMargin('xxl')
-											->setGravity('center'),
-										TextComponentBuilder::builder()
-											->setText($prices['ZCoin']['change'])
-											->setFlex(3)
-											->setGravity('center')
-											->setColor($prices['ZCoin']['color'])
-									]),
-							])
-					));
+
+										BoxComponentBuilder::builder()
+											->setLayout(ComponentLayout::HORIZONTAL)
+											->setMargin('md')
+											->setAction(
+												new UriTemplateActionBuilder('EOS', 'https://info.binance.com/en/currencies/eos')
+											)
+											->setContents([
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+17.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('EOS')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+													]),
+												TextComponentBuilder::builder()
+													->setText($prices['EOS']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['EOS']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['EOS']['color'])
+											]),
+										BoxComponentBuilder::builder()
+											->setLayout(ComponentLayout::HORIZONTAL)
+											->setMargin('md')
+											->setAction(
+												new UriTemplateActionBuilder('Dash', 'https://info.binance.com/en/currencies/dash')
+											)
+											->setContents([
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+14.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('Dash')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+															->setWrap(true)
+													]),
+												TextComponentBuilder::builder()
+													->setText($prices['Dash']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['Dash']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['Dash']['color'])
+											]),
+										BoxComponentBuilder::builder()
+											->setLayout(ComponentLayout::HORIZONTAL)
+											->setMargin('md')
+											->setAction(
+												new UriTemplateActionBuilder('ZCash', 'https://info.binance.com/en/currencies/zcash')
+											)
+											->setContents([
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+16.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('Zcash')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+													]),
+												TextComponentBuilder::builder()
+													->setText($prices['Zcash']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['Zcash']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['Zcash']['color'])
+											]),
+										BoxComponentBuilder::builder()
+											->setLayout(ComponentLayout::HORIZONTAL)
+											->setMargin('md')
+											->setContents([
+												BoxComponentBuilder::builder()
+													->setLayout(ComponentLayout::VERTICAL)
+													->setFlex(3)
+													->setContents([
+														ImageComponentBuilder::builder()
+															->setUrl('https://s3-ap-southeast-1.amazonaws.com/cryptonist/RichMenu_Artboard+18.png')
+															->setAlign('center')
+															->setSize('xxs'),
+														TextComponentBuilder::builder()
+															->setText('GUSD')
+															->setMargin('xs')
+															->setSize('xxs')
+															->setAlign('center')
+													]),
+												TextComponentBuilder::builder()
+													->setText($prices['Gusd']['price'])
+													->setFlex(7)
+													->setMargin('xxl')
+													->setGravity('center'),
+												TextComponentBuilder::builder()
+													->setText($prices['Gusd']['change'])
+													->setFlex(3)
+													->setGravity('center')
+													->setColor($prices['Gusd']['color'])
+											]),
+									])
+							)
+					])
+			);
 
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('q/Bds8sOv3E3oCpUt/nHFxw/2+BlFZA+9JsE6wR9WI5IsJTUfp5JnxFVR72u1rtW1/Ok5Txw8CDA+SgnZw2BYeM40C84LN81S3AanVx+JzaZ39gS1Ym5aDpukigE89e4nuOQacCybEwyKAP+9eXvNQdB04t89/1O/w1cDnyilFU=');
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'a8259507449b790200b74a8cce8c4b5b']);
